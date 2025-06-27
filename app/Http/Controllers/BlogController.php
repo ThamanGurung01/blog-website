@@ -42,7 +42,7 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        return view('blog.show',$blog);
+        return view('blog.show',['blog'=>$blog]);
     }
 
     /**
@@ -50,7 +50,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('blog.edit');
+        return view('blog.edit',['blog'=>$blog]);
     }
 
     /**

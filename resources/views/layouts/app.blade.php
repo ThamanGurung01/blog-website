@@ -30,14 +30,10 @@
             <!-- Page Content -->
             <main>
                 @session('message')
-                <div class="text-2xl max-w-6xl py-4 px-2 rounded-md mx-auto mt-5 text-center bg-green-600 text-white">
+                <div class="text-2xl max-w-full py-4 rounded-md mx-2 mt-5 text-center bg-green-600 text-white">
                     {{ session('message') }}
                 </div>
                 @endsession
-                <div class="text-2xl max-w-full py-4 rounded-md mx-2 mt-5 text-center bg-green-600 text-white">
-                    {{ session('message') }}
-                    hello
-                </div>
                 {{ $slot }}
             </main>
         </div>

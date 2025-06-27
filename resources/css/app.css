@@ -8,3 +8,9 @@
 .btn{
     @apply border-2 border-blue-500 rounded-md hover:bg-blue-500 hover:text-white;
 }
+.editBtn{
+    @apply border-2 border-green-500 rounded-md hover:bg-green-500 hover:text-white;
+}
+.deleteBtn{
+    @apply border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white;
+}
