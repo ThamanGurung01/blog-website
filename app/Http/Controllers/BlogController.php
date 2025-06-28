@@ -10,6 +10,12 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function root_blog()
+    {
+        $blog=Blog::query()->orderBy('created_at','desc')
+        ->paginate();
+        return view('welcome',['blogs'=>$blog]);
+    }
     public function index()
     {
         $blog=Blog::query()->where('user_id',request()->user()->id)

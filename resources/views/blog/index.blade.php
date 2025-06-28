@@ -8,10 +8,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 mb-5">
-                    <div class="flex flex-row-reverse">
-                        <a href="{{ route('blog.create') }}" class="btn px-4 py-2">Create New Blog</a href="/blog/create">
+                    <div class="flex justify-center mb-3">
+                        <a href="{{ url('/') }}" class="btn px-7 py-2">Blogs</a>
                     </div>
-                    <div>
+                    <div class="flex flex-row-reverse">
+                        <a href="{{ route('blog.create') }}" class="btn px-4 py-2">Create New Blog</a>
+                    </div>
+                    @if ($blogs->count() > 0)
+                    <div class="p-6 text-gray-900 mb-5 flex flex-col items-center">
                         <h1 class="heading">Blogs</h1>
                         @foreach ($blogs as $blog)
                             <div class="flex flex-col gap-4 items-center mt-5 bg-white py-10 mx-96 rounded-md border-2 border-gray-200 p-4">
@@ -32,6 +36,12 @@
                             </div>
                         @endforeach
                     </div>
+                        @elseif ($blogs->count() == 0)
+                            <div class="flex flex-col items-center">
+                                <h1 class="text-2xl font-semibold mb-5">No Blogs Found</h1>
+                                <p class="text-gray-500">Create a new Blog</p>
+                            </div>
+                    @endif
                 </div>
             </div>
         </div>

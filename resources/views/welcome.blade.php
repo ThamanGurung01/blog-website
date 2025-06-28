@@ -25,10 +25,10 @@
                 <nav class="flex items-center justify-end gap-4">
                     @auth
                         <a
-                            href="{{ url('/dashboard') }}"
+                            href="{{ route('blog.index') }}"
                             class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18]   rounded-sm text-sm leading-normal"
                         >
-                            Dashboard
+                            My Blogs
                         </a>
                     @else
                         <a
@@ -51,9 +51,26 @@
         </header>
         <hr class="w-full border-t border-gray-300" />
         <div class="flex justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
+            <main class="p-6 text-gray-900 mb-5 flex flex-col items-center">
                 <h1 class="w-full text-center text-2xl font-bold py-4">Blogs</h1>
-                
+                 @foreach ($blogs as $blog)
+                            <div class="flex flex-col gap-4 items-center mt-5 bg-white py-10 mx-96 rounded-md border-2 border-gray-200 p-4">
+                                <div class="flex gap-4 justify-center">
+                                    <h1>{{ $blog->id }}</h1>
+                                </div>
+                                <div class="flex gap-4 justify-center">
+                                    <span>Created Date:</span>
+                                    <h1 class="">{{ $blog->created_at }}</h1>
+                                </div>
+                                <h1 class="text-xl font-semibold">{{ $blog->title }}</h1>
+                                <p class="">{{ $blog->blog }}</p>
+                                <form action="{{ route('blog.edit', $blog) }}" method="DELETE" class="flex gap-4">
+                                    @csrf
+                                    <button type="submit" class="editBtn px-6 py-1">Edit</button>
+                                    <button type='submit' class="deleteBtn px-6 py-1">Delete</button>
+                                </form>
+                            </div>
+                        @endforeach
             </main>
         </div>
 
