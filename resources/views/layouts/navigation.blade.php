@@ -5,20 +5,27 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('blog.index') }}">
+                    <a href="{{ route('root_blog') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
-
-                <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.index')">
+                    <x-nav-link :href="route('root_blog')" :active="request()->routeIs('root_blog')">
                         {{ __('Blogs') }}
                     </x-nav-link>
                 </div>
+                @auth
+                                    <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('blog.index')" :active="request()->routeIs('blog.index')">
+                        {{ __('My Blogs') }}
+                    </x-nav-link>
+                </div>
+                @endauth
             </div>
 
             <!-- Settings Dropdown -->
+                @auth
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -96,5 +103,20 @@
                 </form>
             </div>
         </div>
-    </div>
+        </div>
+                @else
+            @if (Route::has('login'))
+                <nav class="flex items-center justify-end gap-4 w-full px-5">
+                        <a href="{{ route('login') }}"
+                            class="px-10 py-1.5 text-[#1b1b18] border border-transparent hover:border-[#19140035] rounded-sm text-sm leading-normal">
+                            Log in
+                        </a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal">
+                                Register
+                            </a>
+                        @endif
+                </nav>
+            @endif
+            @endauth
 </nav>
