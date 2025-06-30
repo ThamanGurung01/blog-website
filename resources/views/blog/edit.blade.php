@@ -10,6 +10,28 @@
                 <div class="p-6 text-gray-900">
                     <div>
                         <h1 class="heading">Edit Blog</h1>
+                            <form action="{{ route('blog.update',$blog) }}" method="POST" class="flex flex-col w-1/3 gap-7 mx-auto">
+                            @csrf
+                            @method('PUT')
+                            <div class="flex flex-col gap-2">
+                                <label for="title">Title:</label>
+                                <input type="text" value="{{ $blog->title }}" placeholder="Title" name='title' class="w-full max-w-md border border-gray-300 rounded-lg">
+                                 @error('title')
+                                <span class="text-red-600 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label for="blog">Blog:</label>
+                                <textarea name="blog" id="blog" placeholder="Blog" 
+                                class="w-full max-w-md h-32 p-3 border border-gray-300 rounded-lg resize-none">{{ $blog->blog }}</textarea>
+                                @error('blog')
+                                <span class="text-red-600 text-sm">{{$message}}</span>
+                                @enderror
+                            </div>
+                               <div class="mx-auto">
+                                 <button type="submit" class="btn px-12 py-2 text-lg">Update</button>
+                               </div>
+                        </form>
                     </div>
                 </div>
             </div>

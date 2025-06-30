@@ -69,7 +69,11 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        return 'update';
+        $data=$request->validate([
+        'title'=> ['required','string'],
+        'blog'=>['required','string'],]);
+        $blog->update($data);
+        return to_route('blog.show',$blog)->with('message','Blog was updated');
     }
 
     /**
