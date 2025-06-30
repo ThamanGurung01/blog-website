@@ -14,11 +14,13 @@ class BlogController extends Controller
     {
         $blog=Blog::query()->orderBy('created_at','desc')
         ->paginate();
+
         return view('welcome',['blogs'=>$blog]);
     }
     public function index()
     {
-        $blog=Blog::query()->where('user_id',request()->user()->id)
+        $blog=Blog::with("user:name")
+        ->where('user_id',request()->user()->id)
         ->orderBy('created_at','desc')
         ->paginate();
         return view('blog.index',['blogs'=>$blog]);

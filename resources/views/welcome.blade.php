@@ -17,11 +17,7 @@
                                 </div>
                                 <h1 class="text-xl font-semibold">{{ $blog->title }}</h1>
                                 <p class="">{{ $blog->blog }}</p>
-                                <form action="{{ route('blog.edit', $blog) }}" method="DELETE" class="flex gap-4">
-                                    @csrf
-                                    <button type="submit" class="editBtn px-6 py-1">Edit</button>
-                                    <button type='submit' class="deleteBtn px-6 py-1">Delete</button>
-                                </form>
+                                <p class="text-sm">created by: {{ $blog->user->name }}</p>
                             </div>
                         @endforeach
             </main>

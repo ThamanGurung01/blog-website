@@ -15,7 +15,7 @@
                     <div class="p-6 text-gray-900 mb-5 flex flex-col items-center">
                         <h1 class="heading">Blogs</h1>
                         @foreach ($blogs as $blog)
-                            <div class="flex flex-col gap-4 items-center mt-5 bg-white py-10 mx-96 rounded-md border-2 border-gray-200 p-4">
+                            <div class="flex flex-col gap-4 items-center mt-5 bg-white py-5 mx-96 rounded-md border-2 border-gray-200 p-4" id="post-{{ $blog->id }}">
                                 <div class="flex gap-4 justify-center">
                                     <h1>{{ $blog->id }}</h1>
                                 </div>
@@ -25,11 +25,10 @@
                                 </div>
                                 <h1 class="text-xl font-semibold">{{ $blog->title }}</h1>
                                 <p class="">{{ $blog->blog }}</p>
-                                <form action="{{ route('blog.edit', $blog) }}" method="DELETE" class="flex gap-4">
-                                    @csrf
-                                    <button type="submit" class="editBtn px-6 py-1">Edit</button>
-                                    <button type='submit' class="deleteBtn px-6 py-1">Delete</button>
-                                </form>
+                                <div class="flex gap-4 opacity-0 transition-opacity ease-out" id="action-{{ $blog->id }}">
+                                    <a href="{{ route('blog.edit',$blog) }}" class="editBtn px-6 py-1">Edit</a>
+                                    <a href="{{ route('blog.destroy',$blog->id) }}" class="deleteBtn px-6 py-1">Delete</a>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -43,4 +42,16 @@
             </div>
         </div>
     </div>
+    <script>
+        @foreach ($blogs as $blog )
+            const post{{ $blog->id }} = document.getElementById("post-{{ $blog->id }}");
+            const action{{ $blog->id }} = document.getElementById("action-{{ $blog->id }}");
+            post{{ $blog->id }}.addEventListener("mouseover", function() {
+                action{{ $blog->id }}.style.opacity = 1;
+            });
+            post{{ $blog->id }}.addEventListener("mouseout", function() {
+                action{{ $blog->id }}.style.opacity = 0;
+            });
+        @endforeach
+    </script>
 </x-app-layout>
