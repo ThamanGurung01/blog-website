@@ -8,6 +8,7 @@
             <main class="p-6 text-gray-900 mb-5 flex flex-col items-center">
                  @foreach ($blogs as $blog)
                             <div class="flex flex-col gap-4 items-center mt-5 bg-white py-10 mx-96 rounded-md border-2 border-gray-200 p-4">
+                                <a href="{{ route('blog.show', $blog) }}" class="btn px-4 py-1">view</a>
                                 <div class="flex gap-4 justify-center">
                                     <h1>{{ $blog->id }}</h1>
                                 </div>

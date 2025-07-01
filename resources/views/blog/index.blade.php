@@ -25,10 +25,13 @@
                                 </div>
                                 <h1 class="text-xl font-semibold">{{ $blog->title }}</h1>
                                 <p class="">{{ $blog->blog }}</p>
-                                <div class="flex gap-4 opacity-0 transition-opacity ease-out" id="action-{{ $blog->id }}">
-                                    <a href="{{ route('blog.edit',$blog) }}" class="editBtn px-6 py-1">Edit</a>
-                                    <a href="{{ route('blog.destroy',$blog->id) }}" class="deleteBtn px-6 py-1">Delete</a>
-                                </div>
+                                <form action="{{ route('blog.destroy',$blog) }}" method="POST"
+                                class="flex gap-4" id="indexFormDelete-{{ $blog->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('blog.edit',$blog) }}" draggable="false" class="editBtn px-6 py-1 select-none">Edit</a>
+                                <btn class="deleteBtn px-6 py-1 cursor-pointer select-none" id="indexDelete-{{ $blog->id }}">Delete</btn>
+                                </form>
                             </div>
                         @endforeach
                     </div>
@@ -51,6 +54,12 @@
             });
             post{{ $blog->id }}.addEventListener("mouseout", function() {
                 action{{ $blog->id }}.style.opacity = 0;
+            });
+            document.getElementById("indexDelete-{{ $blog->id }}").addEventListener("click", function(event) {
+                event.preventDefault();
+                if (confirm('Are you sure you want to delete this blog?')) {
+                    document.getElementById("indexFormDelete-{{ $blog->id }}").submit();
+                }
             });
         @endforeach
     </script>

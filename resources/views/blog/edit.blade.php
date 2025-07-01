@@ -9,8 +9,15 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div>
+                        <div class="flex">
                         <h1 class="heading">Edit Blog</h1>
-                            <form action="{{ route('blog.update',$blog) }}" method="POST" class="flex flex-col w-1/3 gap-7 mx-auto">
+                        <form action="{{ route('blog.destroy',$blog) }}" method="POST" id="deleteForm">
+                        @csrf
+                        @method('DELETE')
+                        <btn class="deleteBtn px-6 py-1 cursor-pointer select-none" id="deleteButton">Delete</btn>
+                        </form>
+                        </div>
+                        <form action="{{ route('blog.update',$blog) }}" method="POST" class="flex flex-col w-1/3 gap-7 mx-auto">
                             @csrf
                             @method('PUT')
                             <div class="flex flex-col gap-2">
@@ -37,4 +44,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

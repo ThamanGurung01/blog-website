@@ -17,10 +17,17 @@
                 </div>
                 <h1 class="text-xl font-semibold">{{ $blog->title }}</h1>
                 <p class="">{{ $blog->blog }}</p>
-                    <div class="flex gap-4">
-                        <a href="{{ route('blog.edit',$blog) }}" class="editBtn px-6 py-1">Edit</a>
-                        <a href="{{ route('blog.destroy',$blog->id) }}" class="deleteBtn px-6 py-1">Delete</a>
-                    </div>
+                @auth
+                @if (auth()->user()->id===$blog->user_id)
+                <form action="{{ route('blog.destroy',$blog) }}" method="POST"
+                class="flex gap-4" id="deleteForm">
+                @csrf
+                @method('DELETE')
+                <a href="{{ route('blog.edit',$blog) }}" draggable="false" class="editBtn px-6 py-1 select-none">Edit</a>
+                <btn class="deleteBtn px-6 py-1 cursor-pointer select-none" id="deleteButton">Delete</btn>
+                </form>
+                @endif
+                @endauth
             </div>
         </div>
     </div>
