@@ -13,7 +13,7 @@ class BlogController extends Controller
     public function root_blog()
     {
         $blog=Blog::query()->orderBy('created_at','desc')
-        ->paginate();
+        ->paginate(5);
 
         return view('welcome',['blogs'=>$blog]);
     }
@@ -22,7 +22,7 @@ class BlogController extends Controller
         $blog=Blog::with("user:name")
         ->where('user_id',request()->user()->id)
         ->orderBy('created_at','desc')
-        ->paginate();
+        ->paginate(5);
         return view('blog.index',['blogs'=>$blog]);
     }
 

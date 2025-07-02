@@ -35,6 +35,7 @@
                             </div>
                         @endforeach
                     </div>
+                        {{ $blogs->links() }}
                         @elseif ($blogs->count() == 0)
                             <div class="flex flex-col items-center">
                                 <h1 class="text-2xl font-semibold mb-5">No Blogs Found</h1>
