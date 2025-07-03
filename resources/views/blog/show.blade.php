@@ -6,21 +6,17 @@
     </x-slot>
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex flex-col gap-4 items-center mt-5 bg-white py-10 mx-96 rounded-md" id="blogShow">
-                
-                <div class="flex gap-4 justify-center">
-                    <h1>{{ $blog->id }}</h1>
+            <div class="w-full md:w-2/3 lg:w-1/2 flex flex-col mx-auto gap-4 bg-white shadow-md rounded-2xl border-2 border-gray-200 p-6" id="post">
+                <h1 class="text-2xl font-bold text-gray-900">{{ $blog->title }}</h1>
+                <p class="text-gray-700 whitespace-pre-line">{{ $blog->blog }}</p>
+                <div class="flex text-sm text-gray-500 justify-between">
+                    <span>Created At: {{ $blog->created_at->format('M d, Y') }}</span>
+                    <a href="{{ route('blog.show', $blog) }}" class="inline-block bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition">view</a>
                 </div>
-                <div class="flex gap-4 justify-center">
-                    <span>Created Date:</span>
-                    <h1 class="">{{ $blog->created_at }}</h1>
-                </div>
-                <h1 class="text-xl font-semibold">{{ $blog->title }}</h1>
-                <p class="">{{ $blog->blog }}</p>
                 @auth
                 @if (auth()->user()->id===$blog->user_id)
                 <form action="{{ route('blog.destroy',$blog) }}" method="POST"
-                class="flex gap-4" id="deleteForm">
+                class="flex gap-4 justify-end opacity-0 transition-opacity duration-200" id="action">
                 @csrf
                 @method('DELETE')
                 <a href="{{ route('blog.edit',$blog) }}" draggable="false" class="editBtn px-6 py-1 select-none">Edit</a>

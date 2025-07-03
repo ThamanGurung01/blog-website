@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight text-center">
+        <h2 class="font-semibold text-2xl text-gray-800 text-center">
             {{ __('My Blogs') }}
         </h2>
     </x-slot>
@@ -12,36 +12,33 @@
                         <a href="{{ route('blog.create') }}" class="btn px-4 py-2">Create New Blog</a>
                     </div>
                     @if ($blogs->count() > 0)
-                    <div class="p-6 text-gray-900 mb-5 flex flex-col items-center">
+                    <div class="px-4 md:px-8 text-gray-900 mb-5 flex flex-col items-center gap-8">
                         <h1 class="heading">Blogs</h1>
                         @foreach ($blogs as $blog)
-                            <div class="flex flex-col gap-4 items-center mt-5 bg-white py-5 mx-96 rounded-md border-2 border-gray-200 p-4" id="post-{{ $blog->id }}">
-                                <div class="flex gap-4 justify-center">
-                                    <h1>{{ $blog->id }}</h1>
+                            <div class="w-full md:w-2/3 lg:w-1/2 flex flex-col gap-4 bg-white shadow-md rounded-2xl border-2 border-gray-200 p-4" id="post-{{ $blog->id }}">
+                                <h1 class="text-2xl font-bold text-gray-900">{{ $blog->title }}</h1>
+                                <p class="text-gray-700 whitespace-pre-line">{{ $blog->blog }}</p>
+                                <div class="flex text-sm text-gray-500 justify-between">
+                                    <span>Created At: {{ $blog->created_at->format('M d, Y') }}</span>
+                                    <a href="{{ route('blog.show', $blog) }}" class="inline-block bg-blue-600 text-white px-4 py-1 rounded-lg hover:bg-blue-700 transition">view</a>
                                 </div>
-                                <div class="flex gap-4 justify-center">
-                                    <span>Created Date:</span>
-                                    <h1 class="">{{ $blog->created_at }}</h1>
-                                </div>
-                                <h1 class="text-xl font-semibold">{{ $blog->title }}</h1>
-                                <p class="">{{ $blog->blog }}</p>
                                 <form action="{{ route('blog.destroy',$blog) }}" method="POST"
-                                class="flex gap-4" id="indexFormDelete-{{ $blog->id }}">
+                                class="flex gap-4 justify-end opacity-0 transition-opacity duration-200" id="action-{{ $blog->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('blog.edit',$blog) }}" draggable="false" class="editBtn px-6 py-1 select-none">Edit</a>
-                                <btn class="deleteBtn px-6 py-1 cursor-pointer select-none" id="indexDelete-{{ $blog->id }}">Delete</btn>
+                                <a href="{{ route('blog.edit',$blog) }}" draggable="false" class="editBtn px-6 py-1 select-none  justify-end">Edit</a>
+                                <button type="button" class="deleteBtn px-6 py-1 cursor-pointer select-none" id="indexDelete-{{ $blog->id }}">Delete</button>
                                 </form>
                             </div>
                         @endforeach
                     </div>
-                        {{ $blogs->links() }}
                         @elseif ($blogs->count() == 0)
-                            <div class="flex flex-col items-center">
+                            <div class="w-full md:w-2/3 lg:w-1/2 flex flex-col items-center mx-auto gap-4 bg-white py-5 shadow-md rounded-2xl border-2 border-gray-200 p-4">
                                 <h1 class="text-2xl font-semibold mb-5">No Blogs Found</h1>
                                 <p class="text-gray-500">Create a new Blog</p>
                             </div>
                     @endif
+                        {{ $blogs->links() }}
                 </div>
             </div>
         </div>
@@ -50,16 +47,16 @@
         @foreach ($blogs as $blog )
             const post{{ $blog->id }} = document.getElementById("post-{{ $blog->id }}");
             const action{{ $blog->id }} = document.getElementById("action-{{ $blog->id }}");
+            const deleteBtn{{ $blog->id }} = document.getElementById("indexDelete-{{ $blog->id }}");
             post{{ $blog->id }}.addEventListener("mouseover", function() {
                 action{{ $blog->id }}.style.opacity = 1;
             });
             post{{ $blog->id }}.addEventListener("mouseout", function() {
                 action{{ $blog->id }}.style.opacity = 0;
             });
-            document.getElementById("indexDelete-{{ $blog->id }}").addEventListener("click", function(event) {
-                event.preventDefault();
+            deleteBtn{{ $blog->id }}.addEventListener("click", function() {
                 if (confirm('Are you sure you want to delete this blog?')) {
-                    document.getElementById("indexFormDelete-{{ $blog->id }}").submit();
+                    document.getElementById("action-{{ $blog->id }}").submit();
                 }
             });
         @endforeach

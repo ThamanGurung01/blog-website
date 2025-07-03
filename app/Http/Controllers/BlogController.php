@@ -19,8 +19,7 @@ class BlogController extends Controller
     }
     public function index()
     {
-        $blog=Blog::with("user:name")
-        ->where('user_id',request()->user()->id)
+        $blog=Blog::query()->where('user_id',request()->user()->id)
         ->orderBy('created_at','desc')
         ->paginate(5);
         return view('blog.index',['blogs'=>$blog]);
